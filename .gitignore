@@ -1,0 +1,8 @@
+.DS_Store
+Thumbs.db
+*.log
+
+# Orijinal yüksek çözünürlüklü fotoğraflar (web için kullanılan
+# küçültülmüş kopyalar assets/img/ klasöründe)
+/BLT*.JPG
+/WhatsApp Image*.jpeg
