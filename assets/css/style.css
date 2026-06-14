@@ -556,6 +556,17 @@ body {
   margin-bottom: 20px;
 }
 
+.rsvp-hint {
+  font-size: 0.8rem;
+  opacity: 0.65;
+  margin-bottom: 14px;
+}
+
+#drive-upload-link {
+  display: block;
+  margin-bottom: 16px;
+}
+
 .rsvp-form {
   display: flex;
   flex-direction: column;

@@ -15,6 +15,10 @@ const CONFIG = {
   // adresine bir onay maili gelir, onayladıktan sonra sonraki tüm
   // cevaplar/fotoğraflar otomatik düşer.
   rsvpFormEndpoint: "https://formsubmit.co/ajax/keskin3084@gmail.com",
+
+  // Büyük/çok sayıda fotoğraf-video için Google Drive klasör bağlantısı
+  // (paylaşım ayarı: "Bağlantıya sahip olan herkes - Düzenleyebilir" / "Katkıda bulunabilir").
+  driveUploadUrl: "", // örn: "https://drive.google.com/drive/folders/xxxxxxxx?usp=sharing"
 };
 
 // ------------------------------------------------------------------
@@ -125,6 +129,16 @@ function highlightNav() {
 
 window.addEventListener("scroll", highlightNav);
 highlightNav();
+
+// ------------------------------------------------------------------
+// Google Drive anı klasörü bağlantısı
+// ------------------------------------------------------------------
+const driveLink = document.getElementById("drive-upload-link");
+if (CONFIG.driveUploadUrl) {
+  driveLink.href = CONFIG.driveUploadUrl;
+} else {
+  driveLink.classList.add("hidden");
+}
 
 // ------------------------------------------------------------------
 // Katılım formu
