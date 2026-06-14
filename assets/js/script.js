@@ -18,7 +18,7 @@ const CONFIG = {
 
   // Büyük/çok sayıda fotoğraf-video için Google Drive klasör bağlantısı
   // (paylaşım ayarı: "Bağlantıya sahip olan herkes - Düzenleyebilir" / "Katkıda bulunabilir").
-  driveUploadUrl: "", // örn: "https://drive.google.com/drive/folders/xxxxxxxx?usp=sharing"
+  driveUploadUrl: "https://drive.google.com/drive/u/0/folders/1fYUsrs2JOXEhvXaJ8qhzx7btp8_i_2gz",
 };
 
 // ------------------------------------------------------------------
