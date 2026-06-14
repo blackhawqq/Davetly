@@ -103,14 +103,70 @@ Her `git push` sonrası Vercel otomatik olarak yeniden yayınlar.
 8. **Davet Mesajı** — teşekkür ve aile isimleri
 9. **Katılım Durumu** — RSVP formu + dijital anı defteri yükleme
 
-## İleride Birden Fazla Davetiye (İş Fikri)
+## Yeni Müşteri İçin Kopyalama Rehberi (Instagram İşi)
 
-Bu site tek bir çift için kişiselleştirildi. İleride başkalarına da
-hizmet vermek istersen:
+Her çift için bu projenin ayrı bir kopyasını oluşturup kendi Vercel
+adresiyle (örn. `ahmet-elif.vercel.app`) yayınlıyorsun. Adımlar:
 
-- Her müşteri için bu reponun bir kopyasını (template) oluşturup
-  `CONFIG`, metinler, fotoğraflar ve müzik dosyasını değiştirip ayrı bir
-  Vercel projesi olarak yayınlayabilirsin.
-- Daha ölçeklenebilir bir yapı istersen (tek kod tabanı + birden fazla
-  davetiye verisi) ileride bunu Next.js + bir veritabanı/JSON ile
-  dinamik hale getirebiliriz.
+### A) GitHub'da "Template Repository" yap (bir kerelik)
+
+1. Bu repo GitHub'da: **Settings** → **General** → "Template repository"
+   kutusunu işaretle.
+2. Artık her yeni müşteri için repo sayfasında **"Use this template"**
+   butonuna basıp tek tıkla temiz bir kopya oluşturabilirsin (Fikriye &
+   Muzaffer'in foto/müzik dosyaları da kopyaya gelir — adım B'de bunları
+   değiştireceksin).
+
+### B) Yeni müşteri için değiştirilecekler (checklist)
+
+**1. Fotoğraflar** (`assets/img/`)
+- `bride.jpg`, `groom.jpg` — gelin & damat
+- `gallery1.jpg` … `gallery4.jpg` — hatıra fotoğrafları
+
+**2. Müzik** (`assets/music/song.mp3`)
+- Çiftin istediği şarkı (mp3, ffmpeg ile `-b:a 160k` sıkıştırılabilir)
+
+**3. `index.html` içinde metinler**
+- `<title>` ve `<meta>` (og:title, og:description, description)
+- Kapaktaki isimler (`Fikriye` / `Muzaffer` → yeni çiftin isimleri, 2 yerde geçiyor: kapak + hero)
+- `hero-date`, `hero-location` — tarih ve mekan(lar)
+- `quote-author` — "— Ad Soyad" imzası
+- Kına Gecesi ve Düğün Merasimi kartları: tarih, saat, gün, mekan adı,
+  adres, harita linki (`map-btn` href — Google Maps arama linki)
+- "Davet Mesajı" bölümü: `cursive-names`, `hosts-names` (aile büyükleri),
+  `copyright`
+- Sayfa `<title>` ve tüm `Fikriye & Muzaffer` geçen yerler (footer-credit
+  hariç tutulabilir veya o da değiştirilebilir)
+
+**4. `assets/js/script.js` içindeki `CONFIG`**
+- `countdownTarget` — geri sayımın hedef tarihi/saati (ISO format)
+- `rsvpFormEndpoint` — `https://formsubmit.co/ajax/MUSTERI_EMAIL` (müşterinin
+  kendi e-postası — RSVP ve anı defteri cevapları buraya gider)
+- `driveUploadUrl` — müşterinin kendi Google Drive klasör linki (paylaşım:
+  "Bağlantıya sahip olan herkes - Düzenleyici"). Boş bırakılırsa buton
+  gizlenir.
+
+> Not: `rsvpFormEndpoint`'i değiştirdikten sonra ilk form gönderiminde
+> FormSubmit.co müşterinin e-postasına bir **onay maili** gönderir — bu
+> maildeki linke tıklamaları gerekir, yoksa sonraki cevaplar düşmez.
+
+### C) Yeni Vercel Projesi
+
+1. Yeni repoyu GitHub'a push et.
+2. [vercel.com](https://vercel.com) → "Add New Project" → bu repoyu seç.
+3. Framework: **Other**, build/install komutları boş bırak → Deploy.
+4. İstersen Vercel'in proje ayarlarından özel bir alt alan adı
+   (`musteri-adi.vercel.app`) belirle.
+
+### D) Kişiye Özel Davet Linkleri
+
+Her misafire `?to=Ad+Soyad` parametresiyle özel link gönder (bkz. yukarıdaki
+"Kişiye Özel Davet Linki" bölümü) — bu kısım her müşteri için otomatik
+çalışır, ekstra ayar gerekmez.
+
+## İleride Daha Ölçeklenebilir Yapı
+
+Müşteri sayısı artarsa, her biri için ayrı repo/Vercel projesi yönetmek
+yerine tek bir kod tabanı + veritabanı/JSON ile her çiftin bilgilerini
+dinamik çekildiği bir yapıya (örn. Next.js) geçilebilir. Şimdilik "her
+müşteri = ayrı repo" yöntemi daha hızlı ve bakımı basittir.
