@@ -10,13 +10,11 @@ const CONFIG = {
   // Geri sayımın hedef tarihi (Kına gecesi)
   countdownTarget: "2026-07-30T18:30:00",
 
-  // Misafir formu cevapları bu adrese e-posta olarak gönderilir (FormSubmit.co).
-  // İlk gönderimden sonra bu e-posta adresine bir onay maili gelir,
-  // onayladıktan sonra sonraki tüm cevaplar otomatik düşer.
+  // Misafir formu cevapları ve anı defteri fotoğrafları bu adrese e-posta
+  // olarak gönderilir (FormSubmit.co). İlk gönderimden sonra bu e-posta
+  // adresine bir onay maili gelir, onayladıktan sonra sonraki tüm
+  // cevaplar/fotoğraflar otomatik düşer.
   rsvpFormEndpoint: "https://formsubmit.co/ajax/keskin3084@gmail.com",
-
-  // Dijital anı defteri için yükleme bağlantısı (Google Drive / WeTransfer vb.)
-  memoryUploadUrl: "", // örn: "https://forms.gle/xxxxxx"
 };
 
 // ------------------------------------------------------------------
@@ -129,19 +127,6 @@ window.addEventListener("scroll", highlightNav);
 highlightNav();
 
 // ------------------------------------------------------------------
-// Anı yükleme bağlantısı
-// ------------------------------------------------------------------
-const memoryLink = document.getElementById("memory-upload-link");
-if (CONFIG.memoryUploadUrl) {
-  memoryLink.href = CONFIG.memoryUploadUrl;
-} else {
-  memoryLink.addEventListener("click", (e) => {
-    e.preventDefault();
-    alert("Anı yükleme bağlantısı henüz ayarlanmadı.");
-  });
-}
-
-// ------------------------------------------------------------------
 // Katılım formu
 // ------------------------------------------------------------------
 const rsvpForm = document.getElementById("rsvp-form");
@@ -166,4 +151,33 @@ rsvpForm.addEventListener("submit", async (e) => {
 
   rsvpForm.classList.add("hidden");
   formSuccess.classList.remove("hidden");
+});
+
+// ------------------------------------------------------------------
+// Dijital anı defteri — fotoğraf/video yükleme
+// ------------------------------------------------------------------
+const memoryForm = document.getElementById("memory-form");
+const memorySuccess = document.getElementById("memory-success");
+
+memoryForm.addEventListener("submit", async (e) => {
+  e.preventDefault();
+
+  const submitBtn = memoryForm.querySelector(".form-submit");
+  submitBtn.disabled = true;
+  submitBtn.textContent = "Gönderiliyor...";
+
+  const data = new FormData(memoryForm);
+
+  try {
+    await fetch(CONFIG.rsvpFormEndpoint, {
+      method: "POST",
+      body: data,
+      headers: { "Accept": "application/json" },
+    });
+  } catch (err) {
+    // sessizce devam et, kullanıcıya yine de teşekkür mesajı göster
+  }
+
+  memoryForm.classList.add("hidden");
+  memorySuccess.classList.remove("hidden");
 });

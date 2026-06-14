@@ -577,6 +577,23 @@ body {
 .rsvp-form input::placeholder,
 .rsvp-form textarea::placeholder { color: rgba(243, 239, 230, 0.45); }
 
+.rsvp-form input[type="file"] {
+  font-size: 0.85rem;
+  padding: 10px;
+}
+.rsvp-form input[type="file"]::-webkit-file-upload-button,
+.rsvp-form input[type="file"]::file-selector-button {
+  font-family: var(--body-font);
+  font-size: 0.8rem;
+  color: var(--bg-darker);
+  background: var(--gold-soft);
+  border: none;
+  border-radius: 8px;
+  padding: 6px 12px;
+  margin-right: 10px;
+  cursor: pointer;
+}
+
 .form-submit {
   font-family: var(--serif);
   letter-spacing: 0.2em;
